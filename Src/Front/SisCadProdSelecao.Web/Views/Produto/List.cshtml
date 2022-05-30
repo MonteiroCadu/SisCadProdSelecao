@@ -1,0 +1,74 @@
+﻿@model IList<Produto>
+<partial name="_Titulo"/>
+
+<div class="card rounded shadow-sm p-3">
+    <form asp-controller="Produto" asp-action="List" method="get">
+        <div class="row mb-3">
+       
+            <div class="form-group col-md-12">
+                <div class="input-group ">
+                    <div class="input-group-prepend">
+                    <div class="input-group-text">Filtro</div>
+                    </div>
+                    <input type="text" class="form-control " 
+                            placeholder="Pesquise Nome" 
+                            asp-controller="Produto" 
+                            asp-action="List" 
+                            name="stringBuscaPessoa" 
+                            id="stringBuscaPessoa" 
+                            value="@ViewData["stringBuscaPessoa"]"
+                     />
+                     <a class="d-flex btn btn-outline-primary" asp-controller="Produto" asp-action="Create">
+                        <i class="fa fa-plus-circle"></i>
+                        <b class="d-md-none d-sm-none d-xl-block"> Novo</b>
+                    </a>
+                </div>
+            </div>      
+       
+                   
+        </div>
+    </form>
+  <br>
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr> 
+        <th class="d-sm-none  d-md-table-cell">Id</th>
+        <th class="d-md-block  d-md-table-cell">Nome</th>
+        <th  class="d-md-block  d-md-table-cell">Descrição</th>
+        <th class="d-sm-none  d-md-table-cell">Categoria</th>
+        <th class="d-md-block  d-md-table-cell">Opções</th>
+      </tr>
+    </thead>
+        @if(Model is not null)
+        {
+            <tbody >
+            @foreach(var item in Model)
+            {
+                <tr >
+                <td class="d-sm-none  d-md-table-cell">@item.Id</td>
+                <td class="d-md-block  d-md-table-cell">@item.Nome</td>
+                <td class="d-md-block  d-md-table-cell">@item.Descricao</td>
+                <td class="d-sm-none  d-md-table-cell">@item?.Categoria?.Nome</td>
+                <td class="d-md-block o d-md-table-cell">
+                    <a href="@Url.Action("Edit", new {id = item?.Id})" class="btn btn-primary btn-lg">
+                                        <i class="fa fa-edit" tooltip="Editar"></i></a>
+                    <a href="@Url.Action("Delete", new {id = item?.Id})" class="btn btn-danger btn-lg">
+                                        <i class="fa fa-trash" tooltip="Editar"></i></a>
+                </td>
+                </tr> 
+            }
+            </tbody>
+        } else
+        {
+           <tfoot >
+              <tr>
+                <td colspan="8" class="text-center">
+                  <h4>Nenum Produto Cadastrado</h4>
+                </td>
+              </tr>
+           </tfoot> 
+        }
+
+    
+  </table>
+</div>

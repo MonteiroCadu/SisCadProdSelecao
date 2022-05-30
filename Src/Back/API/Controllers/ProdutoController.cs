@@ -56,6 +56,22 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("Nome/{nome}")]
+        public async Task<IActionResult> Get(string nome)
+        {
+            try
+            {
+                var produtos = await this.produtoService.SearchByNameAsync(nome);
+                if (produtos == null) return NoContent();
+
+                return Ok(produtos);
+            }
+            catch (System.Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar os produtos. Erro:{ex.Message}");
+            }
+        }
+
         // POST api/<ProdutoController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ProdutoDto categoria)

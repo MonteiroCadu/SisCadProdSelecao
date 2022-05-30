@@ -16,6 +16,7 @@ namespace Persistence
             IQueryable<Produto> query = _contexto.Produtos
                  .Take(top)
                  .OrderByDescending(p => p.Id)
+                 .Include(p => p.Categoria)
                  .AsNoTracking();
 
             return await query.ToListAsync();
@@ -45,6 +46,7 @@ namespace Persistence
         {
             IQueryable<Produto> query = _contexto.Produtos
                 .Where(p => p.Nome.Contains(nome))
+                .Include(p => p.Categoria)
                 .AsNoTracking();
 
             return await query.ToListAsync();

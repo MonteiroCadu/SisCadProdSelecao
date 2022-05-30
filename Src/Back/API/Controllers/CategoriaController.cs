@@ -58,6 +58,22 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("Nome/{nome}")]
+        public async Task<IActionResult> Get(string nome)
+        {
+            try
+            {
+                var categoria = await categoriaService.SearchByNameAsync(nome);
+                if (categoria == null) return NoContent();
+
+                return Ok(categoria);
+            }
+            catch (System.Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar as categorias. Erro:{ex.Message}");
+            }
+        }
+
         // POST api/<CategoriaController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CategoriaDto categoria)

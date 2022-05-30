@@ -1,0 +1,13 @@
+﻿<div class="d-flex p-3 my-3 text-white bg-dark rounded shadow-sm col-md-12">
+    <div class="d-flex aling-item-center me-auto">
+      <i class="fa @ViewData["FontIcon"] me-3 fs-1"></i>
+      <div class="lh-100">
+        <h2 class="mb-0 ">@ViewData["Titulo"] </h2>
+        <h5>@ViewData["SubTitulo"]</h5>
+      </div>
+    </div>
+    <div class="p-3">
+        <a class="btn btn-outline-light" asp-controller="@ViewData["AspController"]" asp-action="@ViewData["AspAction"]">Listar</a>      
+    </div>
+
+  </div>

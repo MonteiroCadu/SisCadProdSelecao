@@ -1,4 +1,5 @@
 ﻿using SisCadProdSelecao.Web.Models;
+using System.Net;
 
 namespace SisCadProdSelecao.Web.Services
 {
@@ -16,23 +17,58 @@ namespace SisCadProdSelecao.Web.Services
             var SisCadApi = configuration.GetSection("SisCadApi").Value;
             this.httpClient = httpClientFactory.CreateClient(SisCadApi);
         }
+        
 
         public async Task<List<Categoria>?> GetAllAsync()
         {
             var retorno = await httpClient.GetAsync("Categoria");
+            if (!retorno.IsSuccessStatusCode) return null;
             var produtos = await retorno.Content.ReadFromJsonAsync<List<Categoria>>();
 
             return produtos;
         }
 
-        public Task<Categoria?> GetByIdAsync(int id)
+        public async Task<Categoria?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var retorno = await httpClient.GetAsync($"Categoria/{id}");
+            if (!retorno.IsSuccessStatusCode) return null;
+            var categoria = await retorno.Content.ReadFromJsonAsync<Categoria>();
+
+            return categoria;
         }
 
-        public Task<List<Categoria>?> SearchByNameAsync(string Name)
+        public async Task<List<Categoria>?> SearchByNameAsync(string Name)
         {
-            throw new NotImplementedException();
+            var retorno = await httpClient.GetAsync($"Categoria/Nome/{Name}");
+            if (!retorno.IsSuccessStatusCode) return null;
+            var categorias = await retorno.Content.ReadFromJsonAsync<List<Categoria>>();
+
+            return categorias;
         }
+
+        public async Task<Categoria?> save(Categoria categoria)
+        {
+            if (categoria == null) return null;
+
+            HttpResponseMessage retorno;
+
+            if (categoria.Id != null && categoria.Id != 0)
+                retorno = await httpClient.PutAsJsonAsync<Categoria>($"Categoria/{categoria.Id}", categoria);
+            else
+                retorno = await httpClient.PostAsJsonAsync<Categoria>($"Categoria", categoria);
+
+            if (!retorno.IsSuccessStatusCode) return null;
+
+            var CategoriaSalvo = await retorno.Content.ReadFromJsonAsync<Categoria>();
+
+            return CategoriaSalvo;
+        }
+
+        public async Task<HttpStatusCode> Delete(int id)
+        {
+            var retorno = await httpClient.DeleteAsync($"Categoria/{id}");
+            return retorno.StatusCode;
+        }
+
     }
 }

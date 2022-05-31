@@ -20,17 +20,18 @@ namespace SisCadProdSelecao.Web.Controllers
             this.produtoService = produtoService;
             this.categoriaService = categoriaService;
         }
+
         // GET: ProdutoController
-        public async Task<IActionResult> List(string stringBuscaPessoa)
+        public async Task<IActionResult> List(string stringBuscaProduto)
         {                       
 
             this.SetViewData("Listagem", false);                      
             
-            var produtos = stringBuscaPessoa == null
+            var produtos = stringBuscaProduto == null
                             ? await this.produtoService.GetAllAsync()
-                            : await this.produtoService.SearchByNameAsync(stringBuscaPessoa);
+                            : await this.produtoService.SearchByNameAsync(stringBuscaProduto);
 
-            ViewData["stringBuscaPessoa"] = stringBuscaPessoa;
+            ViewData["stringBuscaPessoa"] = stringBuscaProduto;
             return View(produtos);
         }
 

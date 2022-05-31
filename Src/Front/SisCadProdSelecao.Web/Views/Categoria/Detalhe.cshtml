@@ -1,0 +1,51 @@
+﻿@model Categoria
+
+<partial name="_Titulo"/>
+
+<form asp-controller="Categoria" asp-action="Save" method="post">
+    <div class="card rounded shadow-sm ">
+          <div class="p-3">
+           
+            
+            @{if(ViewData["Error"] != null)
+            {
+                <div class="text-danger">@{this.Write(ViewData["Error"]);}
+                </div>
+            } }               
+            
+            
+              <div class="row mb-3">               
+                <div class="form-group col-md-12">                     
+                    <input type="hidden" asp-for="Id" value="@ViewData["Id"]"/>
+                    <label asp-for="Nome">Nome da Categoriao</label>                      
+                    <input type="text" asp-for="Nome" class="form-control" placeholder="Insira o da categoria" required/>                     
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+                
+              </div>
+              <div class="row mb-3">
+                <div class="form-group col-md-12">
+                    <label >Descrição</label>
+                    <input type="text" asp-for="Descricao" class="form-control"  placeholder="Insira a descrição">                    
+                </div>                
+              </div>
+                   
+          </div>
+
+          <div class="card-footer">
+              <div class="d-flex">              
+                @if(Model.Id != null)
+                {
+                     <a class="btn btn-outline-secondary mr-auto border" href="@Url.Action("Edit", new {id = Model.Id})">Cancelar Alteração </a>
+                } else
+                {
+                    <a class="btn btn-outline-secondary mr-auto border" >Cancelar Alteração</a>
+                }
+
+                  <button class="btn btn-success" >
+                      Salvar
+                  </button>
+              </div>
+        </div>
+    </div>    
+</form>

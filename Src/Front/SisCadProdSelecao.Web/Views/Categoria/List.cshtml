@@ -1,4 +1,4 @@
-﻿@model IList<Produto>
+﻿@model IList<Categoria>
 <partial name="_Titulo"/>
 @section Scripts
 {
@@ -10,16 +10,13 @@
     };
 
     function deletaProduto() {
-        window.location.replace("/Produto/Delete/" + idParaDeletar);
+        window.location.replace("/Categoria/Delete/" + idParaDeletar);
     }
   </script>
 }
 
- <!-- Modal -->
-
 <div class="card rounded shadow-sm p-3">
- 
-    <form asp-controller="Produto" asp-action="List" method="get">
+    <form asp-controller="Categoria" asp-action="List" method="get">
         <div class="row mb-3">
        
             <div class="form-group col-md-12">
@@ -31,11 +28,11 @@
                             placeholder="Pesquise Nome" 
                             asp-controller="Produto" 
                             asp-action="List" 
-                            name="stringBuscaPessoa" 
-                            id="stringBuscaPessoa" 
-                            value="@ViewData["stringBuscaPessoa"]"
+                            name="stringBuscaCategoria" 
+                            id="stringBuscaCategoria" 
+                            value="@ViewData["stringBuscaCategoria"]"
                      />
-                     <a class="d-flex btn btn-outline-primary" asp-controller="Produto" asp-action="Create">
+                     <a class="d-flex btn btn-outline-primary" asp-controller="Categoria" asp-action="Create">
                         <i class="fa fa-plus-circle"></i>
                         <b class="d-md-none d-sm-none d-xl-block"> Novo</b>
                     </a>
@@ -52,7 +49,6 @@
         <th class="d-sm-none  d-md-table-cell">Id</th>
         <th class="d-md-block  d-md-table-cell">Nome</th>
         <th  class="d-md-block  d-md-table-cell">Descrição</th>
-        <th class="d-sm-none  d-md-table-cell">Categoria</th>
         <th class="d-md-block  d-md-table-cell">Opções</th>
       </tr>
     </thead>
@@ -64,13 +60,12 @@
                 <tr >
                 <td class="d-sm-none  d-md-table-cell">@item.Id</td>
                 <td class="d-md-block  d-md-table-cell">@item.Nome</td>
-                <td class="d-md-block  d-md-table-cell">@item.Descricao</td>
-                <td class="d-sm-none  d-md-table-cell">@item?.Categoria?.Nome</td>
+                <td class="d-md-block  d-md-table-cell">@item.Descricao</td>               
                 <td class="d-md-block o d-md-table-cell">
-                    <a href="@Url.Action("Edit", new {id = item?.Id})" class="btn btn-primary btn-lg">
+                    <a href="@Url.Action("Edit", new {id = item?.Id})" class="btn btn-primary btn-lg" >
                                         <i class="fa fa-edit" tooltip="Editar"></i></a>
-                    <a class="btn btn-danger btn-lg" onclick="setDelete(@item?.Id)"  data-bs-toggle="modal" data-bs-target="#confirmeDeleteModal">
-                                        <i class="fa fa-trash" tooltip="Editar"></i></a>                    
+                    <a  class="btn btn-danger btn-lg" onclick="setDelete(@item?.Id)"  data-bs-toggle="modal" data-bs-target="#confirmeDeleteModal">
+                                        <i class="fa fa-trash" tooltip="Editar"></i></a>
                 </td>
                 </tr> 
             }
@@ -80,7 +75,7 @@
            <tfoot >
               <tr>
                 <td colspan="8" class="text-center">
-                  <h4>Nenum Produto Cadastrado</h4>
+                  <h4>Nenuma Categria Cadastrada</h4>
                 </td>
               </tr>
            </tfoot> 
@@ -97,7 +92,7 @@
         
       </div>
       <div class="modal-body">
-        Confirma a exclusao do produto?
+        Confirma a exclusao da categoria?
       </div>
       <div class="modal-footer">
         <button type="button" id="btnHideModal" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>

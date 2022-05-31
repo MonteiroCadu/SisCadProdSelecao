@@ -26,8 +26,8 @@ Desenvolva uma aplicação web que contenha os CRUDs de Produtos e Categorias, c
   9. UI/UX
 
 Desenvolvido em duas Soluções dentro do diretorio SRC: 
-  1. Front, Porjeto MVC ASP.NET 6 
-  2. Back, Implementção do Micro serviço via WEB API sub-dividida em camadas, cada (API,Aplication,Domain,persistence), cada uma desenvolvida em projeto individual, visando a extensividade e o desacoplamento entre as camadas.
+  1. Front, Projeto MVC ASP.NET 6 
+  2. Back, Implementação do Micro serviço via WEB API sub-dividida em camadas, cada (API,Application,Domain,Persistence), cada uma desenvolvida em projeto individual, visando a extensividade e o desacoplamento entre as camadas.
 
 Dump do banco de dados MySql com os Scripts de criação e dados de teste no diretorio DataBase.
 

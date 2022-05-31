@@ -30,6 +30,7 @@ namespace SisCadProdSelecao.Web.Controllers
                             ? await this.produtoService.GetAllAsync()
                             : await this.produtoService.SearchByNameAsync(stringBuscaPessoa);
 
+            ViewData["stringBuscaPessoa"] = stringBuscaPessoa;
             return View(produtos);
         }
 

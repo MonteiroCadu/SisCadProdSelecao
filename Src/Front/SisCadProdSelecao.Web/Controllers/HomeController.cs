@@ -15,7 +15,7 @@ namespace SisCadProdSelecao.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("List","Produto");
         }
 
         public IActionResult Privacy()

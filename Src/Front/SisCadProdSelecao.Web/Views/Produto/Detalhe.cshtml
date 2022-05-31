@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label >Categoria</label>
-                    @Html.DropDownListFor(model => model.Produto.CategoriaId, new SelectList(Model.Categorias, "Id", "Nome"), "Selecione ", new { @class="form-select" })    
+                    @Html.DropDownListFor(model => model.Produto.CategoriaId, new SelectList(Model.Categorias, "Id", "Nome"), "Selecione ", new { @class="form-select", @required="true" })    
                     <span asp-validation-for="Produto.CategoriaId" class="text-danger"></span>
                 </div>
               </div>
@@ -43,7 +43,7 @@
 
           <div class="card-footer">
               <div class="d-flex">              
-                @if(Model != null)
+                @if(Model.Produto.Id != null)
                 {
                      <a class="btn btn-outline-secondary mr-auto border" href="@Url.Action("Edit", new {id = Model.Produto.Id})">Cancelar Alteração </a>
                 } else

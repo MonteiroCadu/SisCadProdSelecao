@@ -1,0 +1,18 @@
+﻿
+<div class="modal fade" id="confirmeDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmeDeleteModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Atenção!</h5>
+        
+      </div>
+      <div class="modal-body">
+        Confirma a exclusao do produto?
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnHideModal" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+        <button type="button" class="btn btn-primary" onclick="deletaProduto('@ViewData["uri"]')">Sim</button>
+      </div>
+    </div>
+  </div>
+</div>

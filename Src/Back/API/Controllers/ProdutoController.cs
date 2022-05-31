@@ -74,11 +74,11 @@ namespace API.Controllers
 
         // POST api/<ProdutoController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] ProdutoDto categoria)
+        public async Task<IActionResult> Post([FromBody] ProdutoDto produtoDot)
         {
             try
             {
-                var produtoSaved = await this.produtoService.save(categoria);
+                var produtoSaved = await this.produtoService.save(produtoDot);
                 if (produtoSaved == null) return BadRequest("Erro ao tentar adicionar o produto");
 
                 return Ok(produtoSaved);

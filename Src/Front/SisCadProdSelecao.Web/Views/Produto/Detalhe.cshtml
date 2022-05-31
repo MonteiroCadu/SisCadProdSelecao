@@ -2,7 +2,7 @@
 
 <partial name="_Titulo"/>
 
-<form asp-controller="Cliente" asp-action="Save" method="post">
+<form asp-controller="Produto" asp-action="Save" method="post">
     <div class="card rounded shadow-sm ">
           <div class="p-3">
            
@@ -15,8 +15,8 @@
             
             
               <div class="row mb-3">               
-                <div class="form-group col-md-8"> 
-                    <input type="hidden" id="id" name="id" value="@ViewData["Id"]"/>
+                <div class="form-group col-md-8">                     
+                    <input type="hidden" asp-for="Produto.Id" value="@ViewData["Id"]"/>
                     <label asp-for="Produto.Nome">Nome do produto</label>                      
                     <input type="text" asp-for="Produto.Nome" class="form-control" placeholder="Insira o do produto" required/>                     
                     <span asp-validation-for="Produto.Nome" class="text-danger"></span>

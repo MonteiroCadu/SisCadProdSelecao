@@ -35,19 +35,95 @@ namespace SisCadProdSelecao.Web.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
+            var produtoSalvo = await this.produtoService.GetByIdAsync(id);
+            
+            if (produtoSalvo == null) return BadRequest("Produto não cadastrado no sistema");
+            
+            ViewData["Id"] = produtoSalvo?.Id;
 
             this.SetViewData("Edição", true);
-
-            var produto = await this.produtoService.GetByIdAsync(id);
+            
+            
+            if (produtoSalvo == null) return View("List");
             var categorias = await this.categoriaService.GetAllAsync();
-            if (produto == null) return View("List");
 
             var produtoViewModel = new ProdutoViewModel {
-                Produto = produto,
+                Produto = produtoSalvo,
                 Categorias = categorias
             };               
 
             return View("Detalhe", produtoViewModel);
+        }
+
+        public async Task<ActionResult> Create()
+        {
+            this.SetViewData("Cadastro", false);
+
+            var categorias = await this.categoriaService.GetAllAsync();
+
+            var produtoViewModel = new ProdutoViewModel
+            {
+                Produto = new Produto(),
+                Categorias = categorias
+            };
+
+            return View("Detalhe", produtoViewModel);
+        }
+
+        public async Task<ActionResult> Save(Produto produto)
+        {
+            Produto? produtoSalvo = produto;
+
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    produtoSalvo = await this.produtoService.save(produtoSalvo);
+                    return RedirectToAction("Edit", new { id = produtoSalvo?.Id });
+                }
+                catch (Exception e)
+                {
+                    ViewData["Error"] = e.Message;
+                }
+
+            }
+
+
+            ViewData["Id"] = produtoSalvo?.Id;
+            var subtitulo = "";
+            var edicao = false;
+
+            if (produtoSalvo?.Id == 0)
+                subtitulo = "Cadastro";
+            else
+            {
+                subtitulo = "Edição";
+                edicao = true;
+            }
+
+            this.SetViewData(subtitulo, edicao);
+
+            if (produtoSalvo == null) return View("List");
+            var categorias = await this.categoriaService.GetAllAsync();
+
+            var produtoViewModel = new ProdutoViewModel
+            {
+                Produto = produtoSalvo,
+                Categorias = categorias
+            };
+
+            return View("Detalhe", produtoViewModel);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var produtoSalvo = await this.produtoService.GetByIdAsync(id);            
+            if (produtoSalvo == null) return BadRequest("Produto não cadastrado no sistema");
+
+            await this.produtoService.Delete(id);
+
+            return RedirectToAction("List");
         }
 
         private void SetViewData(string subTitulo, bool edicao)
